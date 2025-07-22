@@ -177,3 +177,21 @@ body {
 .nav-buttons button:hover {
   background: #303f9f;
 }
+
+.quiz-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-display-area {
+  width: 100%;
+  min-height: 380px; /* 🔐 Fixes layout bounce */
+  transition: all 0.3s ease;
+}
+@media (max-width: 600px) {
+  .quiz-display-area {
+    min-height: 300px;
+    max-height: 450px;
+  }
+}

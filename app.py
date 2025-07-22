@@ -13,9 +13,6 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 
-# 🔐 Replace with your actual Gemini API key
-#genai.configure(api_key="GEMINI_API_KEY")  # Replace with your actual key
-
 # Use Gemini 1.5 Flash
 model = genai.GenerativeModel("models/gemini-1.5-flash")
 
@@ -34,17 +31,28 @@ def generate_quiz():
     seed = random.randint(1000, 9999)
 
     prompt = (
-        f"Generate {count} unique multiple-choice questions (MCQs) on the topic '{topic}'. "
-        f"Vary difficulty and phrasing. Ensure different questions each time. Seed: {seed}. "
-        "Return only raw JSON in this exact format with no explanation or markdown:\n"
-        "[\n"
-        "{\n"
-        '  "question": "What is ...?",\n'
-        '  "options": ["Option A", "Option B", "Option C", "Option D"],\n'
-        '  "answer": "A"\n'
-        "},\n"
-        "...]\n"
+    f"Generate {count} unique multiple-choice questions (MCQs) on the topic '{topic}'. "
+    f"Vary the difficulty and wording. Use Seed: {seed} to make them different. "
+    "Each question must include:\n"
+    "- 'question': the question text,\n"
+    "- 'options': a list of 4 answer choices (A–D),\n"
+    "- 'answer': the correct option letter (A/B/C/D),\n"
+    "- 'explanation': a short 1-2 line explanation of the correct answer,\n"
+    "- 'link': a valid Wikipedia or educational link to read more.\n\n"
+    "- If the topic is Aptitude, Reasoning, or English, take explanations and answers from the IndiaBix website (https://www.indiabix.com).\n"
+    "Return ONLY raw JSON in this exact format. Do NOT include markdown, code blocks, or extra text.\n"
+    "[\n"
+    "  {\n"
+    '    "question": "What is ...?",\n'
+    '    "options": ["Option A", "Option B", "Option C", "Option D"],\n'
+    '    "answer": "A",\n'
+    '    "explanation": "Brief reason why A is correct.",'
+    '    "link": "https://en.wikipedia.org/wiki/..." \n'
+    "  },\n"
+    "  ...\n"
+    "]"
     )
+
 
     try:
         response = model.generate_content(prompt)
@@ -68,6 +76,9 @@ def generate_quiz():
         # ✅ Sanitize answers to A/B/C/D format
         for q in quiz_json:
             q["answer"] = re.sub(r"(?i)answer[:\-]?\s*", "", q["answer"]).strip().upper()
+            q["explanation"] = q.get("explanation", "").strip()
+            q["link"] = q.get("link", "").strip()
+
 
         return jsonify({"output": quiz_json})
 

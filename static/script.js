@@ -48,8 +48,15 @@ fetch(backendURL, {
 function showQuestion(index) {
   currentQuestionIndex = index;
   const q = quizData[index];
+  let topBar = `
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+    <span><strong>Question ${index + 1} of ${quizData.length}</strong></span>
+    <button type="button" class="start-button" onclick="showReviewScreen()">🧐 Review All</button>
+  </div>
+  `;
 
-  let html = `<form id='quizForm'>
+
+  let html = `<form id='quizForm'>${topBar}
     <div class="question-block">
       <p><strong>Q${index + 1}:</strong> ${q.question}</p>`;
 
@@ -72,7 +79,9 @@ function showQuestion(index) {
   // Add Prev button only if not first question
   if (index > 0) {
     html += `<button type="button" onclick="prevQuestion()">⬅️ Prev</button>`;
-  }
+  } else {
+  html += `<span></span>`; // empty space to align Next button
+  } 
 
   // Add Next button only if not last question
   if (index < quizData.length - 1) {
@@ -80,8 +89,6 @@ function showQuestion(index) {
   }
 
   html += `</div>
-    <div class="nav-buttons" style="margin-top: 20px;">
-      <button type="button" class="start-button" onclick="showReviewScreen()">🧐 Review All</button>
       <button type="submit" class="start-button">✅ Submit Exam</button>
     </div>
   </form>`;
@@ -185,13 +192,18 @@ function submitExam(e) {
       const q = quizData[index];
       const correct = (q.answer || "").toUpperCase().replace(/ANSWER[:\-]?\s*/i, "").trim();
       const userAns = userAnswers[index] || "Not Answered";
+      const isCorrect = userAns.toUpperCase() === correct;
+      const explanation = q.explanation || "Explanation not available.";
+      const readMore = q.link ? `<a href="${q.link}" target="_blank">Read more →</a>` : "";
 
       resultHTML += `
-        <div style="margin-bottom: 12px; padding: 10px; background: #f9f9f9; border-radius: 10px;">
-          <p><strong>Q${index + 1}:</strong> ${q.question}</p>
-          <p><strong>Your Answer:</strong> ${userAns}</p>
-          <p><strong>Correct Answer:</strong> ${correct}</p>
-        </div>`;
+       <div style="margin-bottom: 12px; padding: 10px; background: #f9f9f9; border-radius: 10px;">
+       <p><strong>Q${index + 1}:</strong> ${q.question}</p>
+       <p><strong>Your Answer:</strong> ${userAns}</p>
+       <p><strong>Correct Answer:</strong> ${correct}</p>
+       ${!isCorrect ? `<p><strong>💡 Explanation:</strong> ${explanation}${readMore ? ` <a href="${q.link}" target="_blank">Read more →</a>` : ""}</p>` : ""}
+  </div>`;
+
     });
 
     resultHTML += `</div>`;
