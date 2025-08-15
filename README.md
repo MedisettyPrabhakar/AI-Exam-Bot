@@ -16,10 +16,10 @@ Whether you're preparing for an exam or just want to learn something new, AI-Exa
 ---
 
 ## 🛠 Tech Stack
-- **Frontend:** [Next.js](https://nextjs.org/) (React Framework)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **AI Integration:** [OpenAI API](https://platform.openai.com/)
-- **Deployment:** [Vercel](https://vercel.com/)
+- **Frontend:** JavaScript
+- **Styling:** CSS
+- **AI Integration:** GEMINI API
+- **Deployment:** Vercel
 
 ---
 
