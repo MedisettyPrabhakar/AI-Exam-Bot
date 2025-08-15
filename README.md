@@ -1,4 +1,4 @@
-# AI-Exam-Bot
+# 🧠AI-Exam-Bot
 Got it — you want a **concise GitHub repository overview** in a style similar to other well-written READMEs, with the classic sections: **About**, **Tech Stack**, **How to Access**, and **Usage**.
 
 Here’s a polished draft for your **AI-Exam-Bot** repo:
@@ -41,10 +41,3 @@ No installation required — just open the link in your browser.
 5. **Answer & Review** → Complete the quiz and review your responses.
 
 ---
-📦 Installation (For Local Setup)
-git clone https://github.com/your-username/pran-ai.git
-cd pran-ai
-pip install -r requirements.txt
-python app.py
-
-Do you want me to also **add a “Features” section** like many popular GitHub projects do so it looks even more professional? That would make your repo stand out.
