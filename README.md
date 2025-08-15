@@ -1,11 +1,4 @@
 # 🧠AI-Exam-Bot
-Got it — you want a **concise GitHub repository overview** in a style similar to other well-written READMEs, with the classic sections: **About**, **Tech Stack**, **How to Access**, and **Usage**.
-
-Here’s a polished draft for your **AI-Exam-Bot** repo:
-
----
-
-## 📖 About
 
 **AI-Exam-Bot** is an AI-powered web application that generates **topic-based multiple-choice questions (MCQs)** in real time.
 It’s designed for students, educators, and self-learners who want to **test their knowledge instantly** without searching for pre-made question banks.
